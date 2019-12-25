@@ -25,3 +25,11 @@ False
 ## Caveats
 ### Overflow
 Both Xor8 and Xor16 take uint8_t and uint_16t respectively. Make sure that the input is unsigned.
+
+##Links
+* [C Implementation](https://github.com/FastFilter/xor_singleheader)
+* [Go Implementation](https://github.com/FastFilter/xorfilter)
+* [Erlang bindings](https://github.com/mpope9/exor_filter)
+* Rust Implementation: [1](https://github.com/bnclabs/xorfilter) and [2](https://github.com/codri/xorfilter-rs)
+* [C++ Implementation](https://github.com/FastFilter/fastfilter_cpp)
+* [Java Implementation](https://github.com/FastFilter/fastfilter_java)

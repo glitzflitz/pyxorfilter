@@ -3,7 +3,7 @@ from ._xorfilter import lib, ffi
 class Xor8:
     def __init__(self, size):
         self.__filter = ffi.new("xor8_t *")
-        status = lib.xor8_allocate(size, self.filter)
+        status = lib.xor8_allocate(size, self.__filter)
         if not status:
             print("Unable to allocate memory for 8 bit filter")
 
@@ -21,9 +21,6 @@ class Xor8:
 
     def size_in_bytes(self):
         return lib.xor8_size_in_bytes(self.__filter)
-
-    def resize(self,size):
-        lib.xor8_allocate(size, self.__filter)
 
 class Xor16:
     def __init__(self, size):

@@ -26,6 +26,11 @@ False
 ### Overflow
 Both Xor8 and Xor16 take uint8_t and uint_16t respectively. Make sure that the input is unsigned.
 
+### TODO
+
+- [ ] Add unit tests and benchmarks
+- [ ] Add CI support for distributing pyxorfilter with PyPI.
+
 ## Links
 * [C Implementation](https://github.com/FastFilter/xor_singleheader)
 * [Go Implementation](https://github.com/FastFilter/xorfilter)

@@ -1,0 +1,3 @@
+[submodule "lib/xor_singleheader"]
+	path = lib/xor_singleheader
+	url = https://github.com/FastFilter/xor_singleheader

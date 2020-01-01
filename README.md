@@ -6,8 +6,8 @@ Python bindings for [C](https://github.com/FastFilter/xor_singleheader) implemen
 ```
 git clone --recursive-submodules https://github.com/GreyDireWolf/pyxorfilter
 cd pyxorfilter
-setup.py build_ext
-setup.py install
+python setup.py build_ext
+python setup.py install
 ```
 ## Usage
 ```

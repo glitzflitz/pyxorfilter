@@ -25,12 +25,14 @@ False
 60
 ```
 ## Caveats
+### Accuracy
+For more accuracy(less false positives) use larger but more accurate Xor16.
 ### Overflow
 Both Xor8 and Xor16 take uint8_t and uint_16t respectively. Make sure that the input is unsigned.
 
 ### TODO
 
-- [ ] Add unit tests and benchmarks
+- [ ] Add unit tests
 - [ ] Add CI support for distributing pyxorfilter with PyPI.
 
 ## Links

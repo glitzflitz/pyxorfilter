@@ -12,15 +12,17 @@ python setup.py install
 ## Usage
 ```
 >>> from pyxorfilter import Xor8, Xor16
->>> filter = Xor8(100)	#or Xor16(size)
->>> filter.populate([_ for _ in range(100)])
+>>> filter = Xor8(5)	#or Xor16(size)
+>>> #Supports unicode strings and heterogeneous types
+>>> test_str = ["あ","अ", 51, 0.0, 12.3]
+>>> filter.populate(test_str)
 True
->>> filter.contains(90)
+>>> filter.contains("अ")
 True
 >>> filter.contains(150)
 False
 >>> filter.size_in_bytes()
-177
+60
 ```
 ## Caveats
 ### Overflow

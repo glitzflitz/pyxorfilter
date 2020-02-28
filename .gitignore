@@ -6,4 +6,4 @@ build/
 env/
 .eggs/
 dist/
-.egg-info
+*.egg-info/

@@ -1,5 +1,6 @@
 from ._xorfilter import lib, ffi
 from zlib import adler32
+import struct
 
 class Xor8:
     def __init__(self, size):
@@ -15,16 +16,19 @@ class Xor8:
         lib.xor8_free(self.__filter)
 
     def populate(self, data):
-        if bool(data) and all(isinstance(elem, str) for elem in data):
-            data = [adler32(i.encode()) for i in data]
-        if bool(data) and all(isinstance(elem, float) for elem in data):
-            data = [adler32(i) for i in data]
+        for idx, val in enumerate(data):
+            if isinstance(val, str):
+                data[idx] = adler32(val.encode())
+            if isinstance(val, float):
+                val = struct.pack('f', val)
+                data[idx] = adler32(val)
         return lib.xor8_buffered_populate(data, len(data), self.__filter)
 
     def contains(self,item):
         if isinstance(item, str):
             item = adler32(item.encode())
         if isinstance(item, float):
+            item = struct.pack('f', item)
             item = adler32(item)
         return lib.xor8_contain(item, self.__filter)
 
@@ -45,16 +49,19 @@ class Xor16:
         lib.xor16_free(self.__filter)
 
     def populate(self, data):
-        if bool(data) and all(isinstance(elem, str) for elem in data):
-            data = [adler32(i.encode()) for i in data]
-        if bool(data) and all(isinstance(elem, float) for elem in data):
-            data = [adler32(i) for i in data]
+        for idx, val in enumerate(data):
+            if isinstance(val, str):
+                data[idx] = adler32(val.encode())
+            if isinstance(val, float):
+                val = struct.pack('f', val)
+                data[idx] = adler32(val)
         return lib.xor16_buffered_populate(data, len(data), self.__filter)
 
     def contains(self, item):
         if isinstance(item, str):
             item = adler32(item.encode())
         if isinstance(item, float):
+            item = struct.pack('f', item)
             item = adler32(item)
         return lib.xor16_contain(item, self.__filter)
 

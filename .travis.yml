@@ -1,0 +1,27 @@
+dist: bionic
+language: python
+
+addons:
+  apt:
+    packages:
+      - build-essential
+
+
+python:
+  - "3.3"
+  - "3.4"
+  - "3.5"
+  - "3.6"
+  - "3.7"
+  - "3.8"
+  - "nightly"
+  - "pypy3"
+
+install:
+  - pip install nose
+
+script:
+  - python setup.py test
+
+cache:
+  - pip

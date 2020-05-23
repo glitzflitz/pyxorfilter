@@ -21,6 +21,10 @@ python setup.py install
 True
 >>> filter.contains("अ")
 True
+>>> filter[51]  #You can use __getitem__ instead of contains
+True
+>>> filter["か"]
+False
 >>> filter.contains(150)
 False
 >>> filter.size_in_bytes()

@@ -1,5 +1,5 @@
 from ._xorfilter import lib, ffi
-from zlib import adler32
+from ctypes import c_ulonglong
 import struct
 
 class Xor8:
@@ -12,24 +12,19 @@ class Xor8:
     def __repr__(self):
         return "Xor8 object with size(in bytes):{}".format(self.size_in_bytes())
 
+    def __getitem__(self, item):
+        return self.contains(item)
+
     def __del__(self):
         lib.xor8_free(self.__filter)
 
     def populate(self, data):
         for idx, val in enumerate(data):
-            if isinstance(val, str):
-                data[idx] = adler32(val.encode())
-            if isinstance(val, float):
-                val = struct.pack('f', val)
-                data[idx] = adler32(val)
+            data[idx] = c_ulonglong((hash(val))).value
         return lib.xor8_buffered_populate(data, len(data), self.__filter)
 
     def contains(self,item):
-        if isinstance(item, str):
-            item = adler32(item.encode())
-        if isinstance(item, float):
-            item = struct.pack('f', item)
-            item = adler32(item)
+        item = c_ulonglong((hash(item))).value
         return lib.xor8_contain(item, self.__filter)
 
     def size_in_bytes(self):
@@ -45,24 +40,19 @@ class Xor16:
     def __repr__(self):
         return "Xor16 object with size(in bytes):{}".format(self.size_in_bytes())
 
+    def __getitem__(self, item):
+        return self.contains(item)
+
     def __del__(self):
         lib.xor16_free(self.__filter)
 
     def populate(self, data):
         for idx, val in enumerate(data):
-            if isinstance(val, str):
-                data[idx] = adler32(val.encode())
-            if isinstance(val, float):
-                val = struct.pack('f', val)
-                data[idx] = adler32(val)
+            data[idx] = c_ulonglong((hash(val))).value
         return lib.xor16_buffered_populate(data, len(data), self.__filter)
 
     def contains(self, item):
-        if isinstance(item, str):
-            item = adler32(item.encode())
-        if isinstance(item, float):
-            item = struct.pack('f', item)
-            item = adler32(item)
+        item = c_ulonglong((hash(item))).value
         return lib.xor16_contain(item, self.__filter)
 
     def size_in_bytes(self):

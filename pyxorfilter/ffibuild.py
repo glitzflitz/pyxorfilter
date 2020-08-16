@@ -6,15 +6,15 @@ from sys import exit, platform
 ffi = FFI()
 cdef_from_file = None
 
-header = 'lib/xor_singleheader/include/xorfilter.h'
+header = "lib/xor_singleheader/include/xorfilter.h"
 
-with open(header, 'r') as src:
+with open(header, "r") as src:
     ffi.set_source(
-        '_xorfilter',
-        src.read(),
+        "_xorfilter", src.read(),
     )
 
-ffi.cdef("""
+ffi.cdef(
+    """
 static inline uint64_t xor_murmur64(uint64_t h) ;
 
 static inline uint64_t xor_mix_split(uint64_t key, uint64_t seed) ;
@@ -114,7 +114,8 @@ bool xor8_buffered_populate(const uint64_t *keys, uint32_t size, xor8_t *filter)
 bool xor8_populate(const uint64_t *keys, uint32_t size, xor8_t *filter) ;
 bool xor16_buffered_populate(const uint64_t *keys, uint32_t size, xor16_t *filter) ;
 bool xor16_populate(const uint64_t *keys, uint32_t size, xor16_t *filter) ;
-""")
+"""
+)
 
-if __name__== '__main__':
+if __name__ == "__main__":
     ffi.compile(verbose=True)

@@ -12,7 +12,7 @@ python setup.py build_ext
 python setup.py install
 ```
 ## Usage
-```
+```py
 >>> from pyxorfilter import Xor8, Xor16
 >>> filter = Xor8(5)	#or Xor16(size)
 >>> #Supports unicode strings and heterogeneous types

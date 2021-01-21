@@ -19,7 +19,7 @@ env:
   global:
     - CIBW_BUILD_VERBOSITY=1
     - CIBW_TEST_REQUIRES=nose
-    - CIBW_TEST_COMMAND="python3 {project}/setup.py test"
+    - CIBW_TEST_COMMAND="nosetests {project}/tests"
     - CIBW_BEFORE_BUILD="pip3 install cffi"
 
 matrix:

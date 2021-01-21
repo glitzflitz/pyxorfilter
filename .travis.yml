@@ -20,26 +20,13 @@ env:
     - CIBW_BUILD_VERBOSITY=1
     - CIBW_TEST_REQUIRES=nose
     - CIBW_TEST_COMMAND="nosetests {project}/tests"
-    - CIBW_BEFORE_BUILD="pip3 install cffi"
+    - CIBW_BEFORE_BUILD="pip install cffi"
+    - CIBW_BEFORE_ALL="python {project}/setup.py build"
 
 matrix:
   include:
     ##### Linux #####
     ##### ARM #####
-    ### 3.5 ###
-    - name: "Python 3.5 on Linux arm64"
-      arch:
-        - arm64
-      env:
-        - CIBW_MANYLINUX_AARCH64_IMAGE: manylinux2014
-        - CIBW_BUILD="cp35-manylinux*"
-        - CIBW_SKIP: "*-manylinux_i686"
-      language: python
-      dist: xenial
-      sudo: required
-      python: "3.7"
-      services:
-        - docker
     ### 3.6 ###
     - name: "Python 3.6 on Linux arm64"
       arch:
@@ -50,7 +37,6 @@ matrix:
         - CIBW_SKIP: "*-manylinux_i686"
       language: python
       dist: xenial
-      sudo: required
       python: "3.7"
       services:
         - docker
@@ -64,7 +50,6 @@ matrix:
         - CIBW_SKIP: "*-manylinux_i686"
       language: python
       dist: xenial
-      sudo: required
       python: "3.7"
       services:
         - docker
@@ -78,7 +63,6 @@ matrix:
         - CIBW_SKIP: "*-manylinux_i686"
       language: python
       dist: xenial
-      sudo: required
       python: "3.7"
       services:
         - docker
@@ -92,24 +76,10 @@ matrix:
         - CIBW_SKIP: "*-manylinux_i686"
       language: python
       dist: xenial
-      sudo: required
       python: "3.7"
       services:
         - docker
     ##### x86_64 #####
-    ### 3.5 ###
-    - name: "Python 3.5 on Linux amd64"
-      arch:
-        - amd64
-      env:
-        - CIBW_BUILD="cp35-manylinux*"
-        - CIBW_SKIP: "*-manylinux_i686"
-      language: python
-      dist: xenial
-      sudo: required
-      python: "3.7"
-      services:
-        - docker
    ### 3.6 ###
     - name: "Python 3.6 on Linux amd64"
       arch:
@@ -119,7 +89,6 @@ matrix:
         - CIBW_SKIP: "*-manylinux_i686"
       language: python
       dist: xenial
-      sudo: required
       python: "3.7"
       services:
         - docker
@@ -132,7 +101,6 @@ matrix:
         - CIBW_SKIP: "*-manylinux_i686"
       language: python
       dist: xenial
-      sudo: required
       python: "3.7"
       services:
         - docker
@@ -145,7 +113,6 @@ matrix:
         - CIBW_SKIP: "*-manylinux_i686"
       language: python
       dist: xenial
-      sudo: required
       python: "3.7"
       services:
         - docker
@@ -158,7 +125,6 @@ matrix:
         - CIBW_SKIP: "*-manylinux_i686"
       language: python
       dist: xenial
-      sudo: required
       python: "3.7"
       services:
         - docker

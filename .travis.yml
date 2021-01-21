@@ -201,7 +201,6 @@ matrix:
 
 
 script:
-  - python setup.py test
   - cibuildwheel --output-dir wheelhouse
   - ls wheelhouse
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then

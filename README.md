@@ -39,7 +39,7 @@ Both Xor8 and Xor16 take uint8_t and uint_16t respectively. Make sure that the i
 ### TODO
 
 - [x] Add unit tests
-- [ ] Add CI support for distributing pyxorfilter with PyPI.
+- [x] Add CI support for distributing pyxorfilter with PyPI.
 
 ## Links
 * [C Implementation](https://github.com/FastFilter/xor_singleheader)

@@ -6,7 +6,7 @@ addons:
       - build-essential
 
 install:
-  - pip install --user --upgrade nose cibuildwheel
+  - pip install --upgrade nose cibuildwheel
 
 cache:
   - pip
@@ -20,7 +20,7 @@ env:
     - CIBW_BUILD_VERBOSITY=1
     - CIBW_TEST_REQUIRES=nose
     - CIBW_TEST_COMMAND="nosetests {project}/tests"
-    - CIBW_BEFORE_BUILD="pip --user install cffi"
+    - CIBW_BEFORE_BUILD="pip install cffi"
     - CIBW_BEFORE_ALL="python {project}/setup.py build"
 
 matrix:
@@ -129,20 +129,15 @@ matrix:
       services:
         - docker
     ##### macOS #####
-    ### 3.5 ###
-    - name: "Python 3.5 on macOS 10.14"
-      env:
-        - CIBW_BUILD="cp35-macosx*"
-      os: osx
-      sudo: required
-      osx_image: xcode10.2
-      language: shell
     ### 3.6 ###
     - name: "Python 3.6 on macOS 10.14"
       env:
         - CIBW_BUILD="cp36-macosx*"
       os: osx
       sudo: required
+      script:
+        - export CIBW_BEFORE_BUILD="pip --user install cffi twine cibuildwheel nose"
+
       osx_image: xcode10.2
       language: shell
     ### 3.7 ###
@@ -151,6 +146,8 @@ matrix:
         - CIBW_BUILD="cp37-macosx*"
       os: osx
       sudo: required
+      script:
+        - export CIBW_BEFORE_BUILD="pip --user install cffi twine cibuildwheel nose"
       osx_image: xcode10.2
       language: shell
     ### 3.8 ###
@@ -159,6 +156,8 @@ matrix:
         - CIBW_BUILD="cp38-macosx*"
       os: osx
       sudo: required
+      script:
+        - export CIBW_BEFORE_BUILD="pip --user install cffi twine cibuildwheel nose"
       osx_image: xcode10.2
       language: shell
     ### 3.9 ###
@@ -167,6 +166,8 @@ matrix:
         - CIBW_BUILD="cp39-macosx*"
       os: osx
       sudo: required
+      script:
+        - export CIBW_BEFORE_BUILD="pip --user install cffi twine cibuildwheel nose"
       osx_image: xcode10.2
       language: shell
 
@@ -180,6 +181,7 @@ matrix:
       language: shell
       script:
         - choco install python --version=3.6.8
+        - choco install pip
 
     - name: "Python 3.7 on Windows"
       arch:
@@ -190,6 +192,7 @@ matrix:
       language: shell
       script:
         - choco install python --version=3.7.9
+        - choco install pip
 
     - name: "Python 3.8 on Windows"
       arch:
@@ -200,6 +203,7 @@ matrix:
       language: shell
       script:
         - choco install python --version=3.8.7
+        - choco install pip
 
     - name: "Python 3.9 on Windows"
       arch:
@@ -210,15 +214,16 @@ matrix:
       language: shell
       script:
         - choco install python --version=3.9.1
+        - choco install pip
 
 script:
   - cibuildwheel --output-dir wheelhouse
   - ls wheelhouse
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then
-      pip3 install --user --upgrade pip;
-      pip3 install --upgrade --user --upgrade-strategy eager twine;
+      pip3 install --upgrade pip;
+      pip3 install --upgrade --upgrade-strategy eager twine;
     elif [ "$TRAVIS_OS_NAME" = "osx" ]; then
-      pip install --user twine;
+      pip install twine;
     fi
   - if [ "$PYPI_UPLOAD" = "test" ]; then
       twine upload --skip-existing wheelhouse/* --repository-url https://test.pypi.org/legacy/ -u ${TEST_PYPI_USR} -p ${TEST_PYPI_PWD};

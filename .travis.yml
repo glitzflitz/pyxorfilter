@@ -134,6 +134,7 @@ matrix:
       env:
         - CIBW_BUILD="cp35-macosx*"
       os: osx
+      sudo: required
       osx_image: xcode10.2
       language: shell
     ### 3.6 ###
@@ -141,6 +142,7 @@ matrix:
       env:
         - CIBW_BUILD="cp36-macosx*"
       os: osx
+      sudo: required
       osx_image: xcode10.2
       language: shell
     ### 3.7 ###
@@ -148,6 +150,7 @@ matrix:
       env:
         - CIBW_BUILD="cp37-macosx*"
       os: osx
+      sudo: required
       osx_image: xcode10.2
       language: shell
     ### 3.8 ###
@@ -155,6 +158,7 @@ matrix:
       env:
         - CIBW_BUILD="cp38-macosx*"
       os: osx
+      sudo: required
       osx_image: xcode10.2
       language: shell
     ### 3.9 ###
@@ -162,33 +166,50 @@ matrix:
       env:
         - CIBW_BUILD="cp39-macosx*"
       os: osx
+      sudo: required
       osx_image: xcode10.2
       language: shell
 
     ## Windows
     - name: "Python 3.6 on Windows"
+      arch:
+        - amd64
       env:
         - CIBW_BUILD="cp36-win*"
       os: windows
       language: shell
+      script:
+        - choco install python --version=3.6.8
 
     - name: "Python 3.7 on Windows"
+      arch:
+        - amd64
       env:
         - CIBW_BUILD="cp37-win*"
       os: windows
       language: shell
+      script:
+        - choco install python --version=3.7.9
 
     - name: "Python 3.8 on Windows"
+      arch:
+        - amd64
       env:
         - CIBW_BUILD="cp38-win*"
       os: windows
       language: shell
+      script:
+        - choco install python --version=3.8.7
 
     - name: "Python 3.9 on Windows"
+      arch:
+        - amd64
       env:
         - CIBW_BUILD="cp39-win*"
       os: windows
       language: shell
+      script:
+        - choco install python --version=3.9.1
 
 script:
   - cibuildwheel --output-dir wheelhouse

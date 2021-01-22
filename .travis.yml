@@ -6,7 +6,7 @@ addons:
       - build-essential
 
 install:
-  - pip install --upgrade nose cibuildwheel
+  - pip install --user --upgrade nose cibuildwheel
 
 cache:
   - pip
@@ -20,7 +20,7 @@ env:
     - CIBW_BUILD_VERBOSITY=1
     - CIBW_TEST_REQUIRES=nose
     - CIBW_TEST_COMMAND="nosetests {project}/tests"
-    - CIBW_BEFORE_BUILD="pip install cffi"
+    - CIBW_BEFORE_BUILD="pip --user install cffi"
     - CIBW_BEFORE_ALL="python {project}/setup.py build"
 
 matrix:
@@ -215,10 +215,10 @@ script:
   - cibuildwheel --output-dir wheelhouse
   - ls wheelhouse
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then
-      pip3 install --upgrade pip;
-      pip3 install --upgrade --upgrade-strategy eager twine;
+      pip3 install --user --upgrade pip;
+      pip3 install --upgrade --user --upgrade-strategy eager twine;
     elif [ "$TRAVIS_OS_NAME" = "osx" ]; then
-      pip install twine;
+      pip install --user twine;
     fi
   - if [ "$PYPI_UPLOAD" = "test" ]; then
       twine upload --skip-existing wheelhouse/* --repository-url https://test.pypi.org/legacy/ -u ${TEST_PYPI_USR} -p ${TEST_PYPI_PWD};

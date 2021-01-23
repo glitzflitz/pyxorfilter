@@ -1,12 +1,11 @@
-language: python
-
-addons:
-  apt:
-    packages:
-      - build-essential
-
 install:
-  - pip install --upgrade nose cibuildwheel
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then
+      pip install --upgrade nose cibuildwheel;
+    elif [ "$TRAVIS_OS_NAME" = "osx" ]; then
+      pip install --user --upgrade nose cibuildwheel;
+    elif [ "$TRAVIS_OS_NAME" = "windows" ]; then
+      python -m pip install --upgrade nose cibuildwheel;
+    fi
 
 cache:
   - pip
@@ -36,7 +35,7 @@ matrix:
         - CIBW_BUILD="cp36-manylinux*"
         - CIBW_SKIP: "*-manylinux_i686"
       language: python
-      dist: xenial
+      dist: bionic
       python: "3.7"
       services:
         - docker
@@ -49,7 +48,7 @@ matrix:
         - CIBW_BUILD="cp37-manylinux*"
         - CIBW_SKIP: "*-manylinux_i686"
       language: python
-      dist: xenial
+      dist: bionic
       python: "3.7"
       services:
         - docker
@@ -62,7 +61,7 @@ matrix:
         - CIBW_BUILD="cp38-manylinux*"
         - CIBW_SKIP: "*-manylinux_i686"
       language: python
-      dist: xenial
+      dist: bionic
       python: "3.7"
       services:
         - docker
@@ -75,7 +74,7 @@ matrix:
         - CIBW_BUILD="cp39-manylinux*"
         - CIBW_SKIP: "*-manylinux_i686"
       language: python
-      dist: xenial
+      dist: bionic
       python: "3.7"
       services:
         - docker
@@ -88,7 +87,7 @@ matrix:
         - CIBW_BUILD="cp36-manylinux*"
         - CIBW_SKIP: "*-manylinux_i686"
       language: python
-      dist: xenial
+      dist: bionic
       python: "3.7"
       services:
         - docker
@@ -100,7 +99,7 @@ matrix:
         - CIBW_BUILD="cp37-manylinux*"
         - CIBW_SKIP: "*-manylinux_i686"
       language: python
-      dist: xenial
+      dist: bionic
       python: "3.7"
       services:
         - docker
@@ -112,7 +111,7 @@ matrix:
         - CIBW_BUILD="cp38-manylinux*"
         - CIBW_SKIP: "*-manylinux_i686"
       language: python
-      dist: xenial
+      dist: bionic
       python: "3.7"
       services:
         - docker
@@ -124,7 +123,7 @@ matrix:
         - CIBW_BUILD="cp39-manylinux*"
         - CIBW_SKIP: "*-manylinux_i686"
       language: python
-      dist: xenial
+      dist: bionic
       python: "3.7"
       services:
         - docker
@@ -134,10 +133,6 @@ matrix:
       env:
         - CIBW_BUILD="cp36-macosx*"
       os: osx
-      sudo: required
-      script:
-        - export CIBW_BEFORE_BUILD="pip --user install cffi twine cibuildwheel nose"
-
       osx_image: xcode10.2
       language: shell
     ### 3.7 ###
@@ -145,9 +140,6 @@ matrix:
       env:
         - CIBW_BUILD="cp37-macosx*"
       os: osx
-      sudo: required
-      script:
-        - export CIBW_BEFORE_BUILD="pip --user install cffi twine cibuildwheel nose"
       osx_image: xcode10.2
       language: shell
     ### 3.8 ###
@@ -155,9 +147,6 @@ matrix:
       env:
         - CIBW_BUILD="cp38-macosx*"
       os: osx
-      sudo: required
-      script:
-        - export CIBW_BEFORE_BUILD="pip --user install cffi twine cibuildwheel nose"
       osx_image: xcode10.2
       language: shell
     ### 3.9 ###
@@ -166,8 +155,6 @@ matrix:
         - CIBW_BUILD="cp39-macosx*"
       os: osx
       sudo: required
-      script:
-        - export CIBW_BEFORE_BUILD="pip --user install cffi twine cibuildwheel nose"
       osx_image: xcode10.2
       language: shell
 
@@ -223,10 +210,16 @@ script:
       pip3 install --upgrade pip;
       pip3 install --upgrade --upgrade-strategy eager twine;
     elif [ "$TRAVIS_OS_NAME" = "osx" ]; then
-      pip install twine;
+      pip install --user twine;
+    elif [ "$TRAVIS_OS_NAME" = "windows" ]; the
+      python -m pip install twine
     fi
-  - if [ "$PYPI_UPLOAD" = "test" ]; then
+  - if [ "$PYPI_UPLOAD" = "test" -a "$TRAVIS_OS_NAME" = "windows" ]; then
+      python -m twine upload --skip-existing wheelhouse/* --repository-url https://test.pypi.org/legacy/ -u ${TEST_PYPI_USR} -p ${TEST_PYPI_PWD};
+    elif [ "$PYPI_UPLOAD" = "test" -a "$TRAVIS_OS_NAME" != "windows" ]; then
       twine upload --skip-existing wheelhouse/* --repository-url https://test.pypi.org/legacy/ -u ${TEST_PYPI_USR} -p ${TEST_PYPI_PWD};
-    elif [ "$PYPI_UPLOAD" = "release" ]; then
+    elif [ "$PYPI_UPLOAD" = "release" -a "$TRAVIS_OS_NAME" = "windows" ]; then
+      python -m twine upload --skip-existing wheelhouse/* -u ${PYPI_USR} -p ${PYPI_PWD};
+    elif [ "$PYPI_UPLOAD" = "release" -a "$TRAVIS_OS_NAME" != "windows" ]; then
       twine upload --skip-existing wheelhouse/* -u ${PYPI_USR} -p ${PYPI_PWD};
     fi

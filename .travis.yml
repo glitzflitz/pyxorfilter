@@ -211,7 +211,7 @@ script:
       pip3 install --upgrade --upgrade-strategy eager twine;
     elif [ "$TRAVIS_OS_NAME" = "osx" ]; then
       pip install --user twine;
-    elif [ "$TRAVIS_OS_NAME" = "windows" ]; the
+    elif [ "$TRAVIS_OS_NAME" = "windows" ]; then
       python -m pip install twine;
     fi
   - if [ "$PYPI_UPLOAD" = "test" -a "$TRAVIS_OS_NAME" = "windows" ]; then

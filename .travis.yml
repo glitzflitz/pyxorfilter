@@ -3,8 +3,6 @@ install:
       pip install --upgrade nose cibuildwheel;
     elif [ "$TRAVIS_OS_NAME" = "osx" ]; then
       pip install --user --upgrade nose cibuildwheel;
-    elif [ "$TRAVIS_OS_NAME" = "windows" ]; then
-      python -m pip install --upgrade nose cibuildwheel;
     fi
 
 cache:
@@ -127,36 +125,6 @@ matrix:
       python: "3.7"
       services:
         - docker
-    ##### macOS #####
-    ### 3.6 ###
-    - name: "Python 3.6 on macOS 10.14"
-      env:
-        - CIBW_BUILD="cp36-macosx*"
-      os: osx
-      osx_image: xcode10.2
-      language: shell
-    ### 3.7 ###
-    - name: "Python 3.7 on macOS 10.14"
-      env:
-        - CIBW_BUILD="cp37-macosx*"
-      os: osx
-      osx_image: xcode10.2
-      language: shell
-    ### 3.8 ###
-    - name: "Python 3.8 on macOS 10.14"
-      env:
-        - CIBW_BUILD="cp38-macosx*"
-      os: osx
-      osx_image: xcode10.2
-      language: shell
-    ### 3.9 ###
-    - name: "Python 3.9 on macOS 10.14"
-      env:
-        - CIBW_BUILD="cp39-macosx*"
-      os: osx
-      sudo: required
-      osx_image: xcode10.2
-      language: shell
 
     ## Windows
     - name: "Python 3.6 on Windows"
@@ -169,6 +137,7 @@ matrix:
       script:
         - choco install python --version=3.6.8
         - choco install pip
+        - pip install --upgrade nose cibuildwheel
 
     - name: "Python 3.7 on Windows"
       arch:
@@ -180,6 +149,7 @@ matrix:
       script:
         - choco install python --version=3.7.9
         - choco install pip
+        - pip install --upgrade nose cibuildwheel
 
     - name: "Python 3.8 on Windows"
       arch:
@@ -191,6 +161,7 @@ matrix:
       script:
         - choco install python --version=3.8.7
         - choco install pip
+        - pip install --upgrade nose cibuildwheel
 
     - name: "Python 3.9 on Windows"
       arch:
@@ -202,6 +173,7 @@ matrix:
       script:
         - choco install python --version=3.9.1
         - choco install pip
+        - pip install --upgrade nose cibuildwheel
 
 script:
   - cibuildwheel --output-dir wheelhouse

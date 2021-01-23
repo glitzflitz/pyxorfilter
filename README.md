@@ -4,6 +4,7 @@
 
 Python bindings for [C](https://github.com/FastFilter/xor_singleheader) implementation of [Xor Filters: Faster and Smaller Than Bloom and Cuckoo Filters](https://arxiv.org/abs/1912.08258)
 ## Installation
+`pip install pyxorfilter`
 ### From Source
 ```
 git clone --recurse-submodules https://github.com/GreyDireWolf/pyxorfilter

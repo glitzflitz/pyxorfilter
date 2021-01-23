@@ -212,7 +212,7 @@ script:
     elif [ "$TRAVIS_OS_NAME" = "osx" ]; then
       pip install --user twine;
     elif [ "$TRAVIS_OS_NAME" = "windows" ]; the
-      python -m pip install twine
+      python -m pip install twine;
     fi
   - if [ "$PYPI_UPLOAD" = "test" -a "$TRAVIS_OS_NAME" = "windows" ]; then
       python -m twine upload --skip-existing wheelhouse/* --repository-url https://test.pypi.org/legacy/ -u ${TEST_PYPI_USR} -p ${TEST_PYPI_PWD};

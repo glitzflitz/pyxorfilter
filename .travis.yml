@@ -127,53 +127,53 @@ matrix:
         - docker
 
     ## Windows
-    - name: "Python 3.6 on Windows"
-      arch:
-        - amd64
-      env:
-        - CIBW_BUILD="cp36-win*"
-      os: windows
-      language: shell
-      before_install:
-        - choco install python --version=3.6.8
-        - python -m pip install --upgrade nose cibuildwheel
-      env: PATH=/c/Python36:/c/Python36/Scripts:$PATH
-
-    - name: "Python 3.7 on Windows"
-      arch:
-        - amd64
-      env:
-        - CIBW_BUILD="cp37-win*"
-      os: windows
-      language: shell
-      before_install:
-        - choco install python --version=3.7.9
-        - python -m pip install --upgrade nose cibuildwheel
-      env: PATH=/c/Python37:/c/Python37/Scripts:$PATH
-
-    - name: "Python 3.8 on Windows"
-      arch:
-        - amd64
-      env:
-        - CIBW_BUILD="cp38-win*"
-      os: windows
-      language: shell
-      before_install:
-        - choco install python --version=3.8.7
-        - python -m pip install --upgrade nose cibuildwheel
-      env: PATH=/c/Python38:/c/Python38/Scripts:$PATH
-
-    - name: "Python 3.9 on Windows"
-      arch:
-        - amd64
-      env:
-        - CIBW_BUILD="cp39-win*"
-      os: windows
-      language: shell
-      before_install:
-        - choco install python --version=3.9.1
-        - python -m pip install --upgrade nose cibuildwheel
-      env: PATH=/c/Python39:/c/Python39/Scripts:$PATH
+    #    - name: "Python 3.6 on Windows"
+    #      arch:
+    #        - amd64
+    #      env:
+    #        - CIBW_BUILD="cp36-win*"
+    #      os: windows
+    #      language: shell
+    #      before_install:
+    #        - choco install python --version=3.6.8
+    #        - python -m pip install --upgrade nose cibuildwheel
+    #      env: PATH=/c/Python36:/c/Python36/Scripts:$PATH
+    #
+    #    - name: "Python 3.7 on Windows"
+    #      arch:
+    #        - amd64
+    #      env:
+    #        - CIBW_BUILD="cp37-win*"
+    #      os: windows
+    #      language: shell
+    #      before_install:
+    #        - choco install python --version=3.7.9
+    #        - python -m pip install --upgrade nose cibuildwheel
+    #      env: PATH=/c/Python37:/c/Python37/Scripts:$PATH
+    #
+    #    - name: "Python 3.8 on Windows"
+    #      arch:
+    #        - amd64
+    #      env:
+    #        - CIBW_BUILD="cp38-win*"
+    #      os: windows
+    #      language: shell
+    #      before_install:
+    #        - choco install python --version=3.8.7
+    #        - python -m pip install --upgrade nose cibuildwheel
+    #      env: PATH=/c/Python38:/c/Python38/Scripts:$PATH
+    #
+    #    - name: "Python 3.9 on Windows"
+    #      arch:
+    #        - amd64
+    #      env:
+    #        - CIBW_BUILD="cp39-win*"
+    #      os: windows
+    #      language: shell
+    #      before_install:
+    #        - choco install python --version=3.9.1
+    #        - python -m pip install --upgrade nose cibuildwheel
+    #      env: PATH=/c/Python39:/c/Python39/Scripts:$PATH
 
 script:
   - cibuildwheel --output-dir wheelhouse

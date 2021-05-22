@@ -7,7 +7,7 @@ Python bindings for [C](https://github.com/FastFilter/xor_singleheader) implemen
 `pip install pyxorfilter`
 ### From Source
 ```
-git clone --recurse-submodules https://github.com/GreyDireWolf/pyxorfilter
+git clone --recurse-submodules https://github.com/glitzflitz/pyxorfilter
 cd pyxorfilter
 python setup.py build_ext
 python setup.py install

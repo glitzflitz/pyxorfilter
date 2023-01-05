@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/glitzflitz/pyxorfilter.svg?branch=master)](https://travis-ci.org/glitzflitz/pyxorfilter)
 
 Python bindings for [C](https://github.com/FastFilter/xor_singleheader) implementation of [Xor Filters: Faster and Smaller Than Bloom and Cuckoo Filters](https://arxiv.org/abs/1912.08258)
+and of [Binary Fuse Filters: Fast and Smaller Than Xor Filters](https://arxiv.org/abs/2201.01174).
 ## Installation
 `pip install pyxorfilter`
 ### From Source
@@ -33,9 +34,9 @@ False
 ```
 ## Caveats
 ### Accuracy
-For more accuracy(less false positives) use larger but more accurate Xor16.
+For more accuracy(less false positives) use larger but more accurate Xor16 for Fuse16.
 
-For large sets, Fuse8/Fuse16 filters are faster and smaller than Xor8/Xor16.
+For large sets (contain millions of keys), Fuse8/Fuse16 filters are faster and smaller than Xor8/Xor16.
 
 ```py
 >>> filter = Xor8(1000000)
@@ -47,7 +48,7 @@ For large sets, Fuse8/Fuse16 filters are faster and smaller than Xor8/Xor16.
 ```
 
 ### Overflow
-Both Xor8/Fuse8 and Xor16 take uint8_t and uint_16t respectively. Make sure that the input is unsigned.
+Both Xor8/Fuse8 and Xor16/Fuse16 take uint8_t and uint_16t respectively. Make sure that the input is unsigned.
 
 ### TODO
 

@@ -6,12 +6,17 @@ from sys import exit, platform
 ffi = FFI()
 cdef_from_file = None
 
-header = "lib/xor_singleheader/include/xorfilter.h"
+all_src = ""
+with open("lib/xor_singleheader/include/xorfilter.h", "r") as src:
+  all_src += src.read()
 
-with open(header, "r") as src:
-    ffi.set_source(
-        "_xorfilter", src.read(),
-    )
+with open("lib/xor_singleheader/include/binaryfusefilter.h", "r") as src:
+  all_src += src.read()
+
+
+ffi.set_source(
+  "_xorfilter", all_src,
+)
 
 ffi.cdef(
     """
@@ -46,6 +51,26 @@ typedef struct xor16_s {
   uint16_t
       *fingerprints; // after xor16_allocate, will point to 3*blockLength values
 } xor16_t;
+
+typedef struct binary_fuse8_s {
+  uint64_t Seed;
+  uint32_t SegmentLength;
+  uint32_t SegmentLengthMask;
+  uint32_t SegmentCount;
+  uint32_t SegmentCountLength;
+  uint32_t ArrayLength;
+  uint8_t *Fingerprints;
+} binary_fuse8_t;
+
+typedef struct binary_fuse16_s {
+  uint64_t Seed;
+  uint32_t SegmentLength;
+  uint32_t SegmentLengthMask;
+  uint32_t SegmentCount;
+  uint32_t SegmentCountLength;
+  uint32_t ArrayLength;
+  uint16_t *Fingerprints;
+} binary_fuse16_t;
 
 typedef struct xor_xorset_s xor_xorset_t;
 
@@ -83,16 +108,25 @@ typedef struct xor_setbuffer_s xor_setbuffer_t;
 
 static inline bool xor8_contain(uint64_t key, const xor8_t *filter);
 static inline bool xor16_contain(uint64_t key, const xor16_t *filter);
+static inline bool binary_fuse8_contain(uint64_t key, const binary_fuse8_t *filter);
+static inline bool binary_fuse16_contain(uint64_t key, const binary_fuse16_t *filter);
 
 static inline bool xor8_allocate(uint32_t size, xor8_t *filter);
 static inline bool xor16_allocate(uint32_t size, xor16_t *filter);
+static inline bool binary_fuse8_allocate(uint32_t size, binary_fuse8_t *filter);
+static inline bool binary_fuse16_allocate(uint32_t size, binary_fuse16_t *filter);
+
 static inline size_t xor8_size_in_bytes(const xor8_t *filter);
 static inline size_t xor16_size_in_bytes(const xor16_t *filter);
+static inline size_t binary_fuse8_size_in_bytes(const binary_fuse8_t *filter);
+static inline size_t binary_fuse16_size_in_bytes(const binary_fuse16_t *filter);
+
 static inline void xor8_free(xor8_t *filter);
 static inline void xor16_free(xor16_t *filter);
+static inline void binary_fuse8_free(binary_fuse8_t *filter);
+static inline void binary_fuse16_free(binary_fuse16_t *filter);
 
 static inline xor_hashes_t xor8_get_h0_h1_h2(uint64_t k, const xor8_t *filter) ;
-static inline xor_h0h1h2_t xor8_get_just_h0_h1_h2(uint64_t hash, const xor8_t *filter) ;
 static inline uint32_t xor8_get_h0(uint64_t hash, const xor8_t *filter) ;
 static inline uint32_t xor8_get_h1(uint64_t hash, const xor8_t *filter) ;
 static inline uint32_t xor8_get_h2(uint64_t hash, const xor8_t *filter) ;
@@ -112,8 +146,11 @@ static inline uint32_t xor_flushone_decrement_buffer(xor_setbuffer_t *buffer, xo
 
 bool xor8_buffered_populate(const uint64_t *keys, uint32_t size, xor8_t *filter) ;
 bool xor8_populate(const uint64_t *keys, uint32_t size, xor8_t *filter) ;
+bool binary_fuse8_populate(const uint64_t *keys, uint32_t size, binary_fuse8_t *filter) ;
 bool xor16_buffered_populate(const uint64_t *keys, uint32_t size, xor16_t *filter) ;
 bool xor16_populate(const uint64_t *keys, uint32_t size, xor16_t *filter) ;
+bool binary_fuse16_populate(const uint64_t *keys, uint32_t size, binary_fuse16_t *filter) ;
+
 """
 )
 

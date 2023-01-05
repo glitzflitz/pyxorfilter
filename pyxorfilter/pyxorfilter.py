@@ -61,3 +61,69 @@ class Xor16:
 
     def size_in_bytes(self):
         return lib.xor16_size_in_bytes(self.__filter)
+
+
+
+class Fuse8:
+    def __init__(self, size):
+        self.__filter = ffi.new("binary_fuse8_t *")
+        status = lib.binary_fuse8_allocate(size, self.__filter)
+        self.size = size
+        if not status:
+            print("Unable to allocate memory for 8 bit filter")
+
+    def __repr__(self):
+        return "Fuse8 object with size(in bytes):{}".format(self.size_in_bytes())
+
+    def __getitem__(self, item):
+        return self.contains(item)
+
+    def __del__(self):
+        lib.binary_fuse8_free(self.__filter)
+
+    def populate(self, data: list):
+        """
+        Data can either be a list or iterable
+        """
+        data = list(map(lambda x: c_ulonglong((hash(x))).value, data))
+        return lib.binary_fuse8_populate(data, len(data), self.__filter)
+
+    def contains(self, item):
+        item = c_ulonglong((hash(item))).value
+        return lib.binary_fuse8_contain(item, self.__filter)
+
+    def size_in_bytes(self):
+        return lib.binary_fuse8_size_in_bytes(self.__filter)
+
+
+
+class Fuse16:
+    def __init__(self, size):
+        self.__filter = ffi.new("binary_fuse16_t *")
+        status = lib.binary_fuse16_allocate(size, self.__filter)
+        self.size = size
+        if not status:
+            print("Unable to allocate memory for 16 bit filter")
+
+    def __repr__(self):
+        return "Fuse16 object with size(in bytes):{}".format(self.size_in_bytes())
+
+    def __getitem__(self, item):
+        return self.contains(item)
+
+    def __del__(self):
+        lib.binary_fuse16_free(self.__filter)
+
+    def populate(self, data: list):
+        """
+        Data can either be a list or iterable
+        """
+        data = list(map(lambda x: c_ulonglong((hash(x))).value, data))
+        return lib.binary_fuse16_populate(data, len(data), self.__filter)
+
+    def contains(self, item):
+        item = c_ulonglong((hash(item))).value
+        return lib.binary_fuse16_contain(item, self.__filter)
+
+    def size_in_bytes(self):
+        return lib.binary_fuse16_size_in_bytes(self.__filter)

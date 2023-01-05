@@ -14,7 +14,7 @@ python setup.py install
 ```
 ## Usage
 ```py
->>> from pyxorfilter import Xor8, Xor16
+>>> from pyxorfilter import Xor8, Xor16, Fuse8, Fuse16
 >>> filter = Xor8(5)	#or Xor16(size)
 >>> #Supports unicode strings and heterogeneous types
 >>> test_str = ["あ","अ", 51, 0.0, 12.3]
@@ -34,8 +34,20 @@ False
 ## Caveats
 ### Accuracy
 For more accuracy(less false positives) use larger but more accurate Xor16.
+
+For large sets, Fuse8/Fuse16 filters are faster and smaller than Xor8/Xor16.
+
+```py
+>>> filter = Xor8(1000000)
+>>> filter.size_in_bytes()
+1230054
+>>> filter = Fuse8(1000000)
+>>> filter.size_in_bytes()
+1130536
+```
+
 ### Overflow
-Both Xor8 and Xor16 take uint8_t and uint_16t respectively. Make sure that the input is unsigned.
+Both Xor8/Fuse8 and Xor16 take uint8_t and uint_16t respectively. Make sure that the input is unsigned.
 
 ### TODO
 

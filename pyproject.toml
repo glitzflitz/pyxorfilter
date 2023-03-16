@@ -1,6 +1,6 @@
 [project]
 name = "pyxorfilter"
-version = "0.1.1"
+version = "1.0.0"
 description = "Python bindings for C implementation of xorfilter"
 authors = [
     {name = "Amey Narkhede", email = "ameynarkhede02@gmail.com"},

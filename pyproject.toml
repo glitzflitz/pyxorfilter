@@ -1,0 +1,19 @@
+[tool.pdm]
+
+[project]
+name = "pyxorfilter"
+version = "0.1.1"
+description = "Python bindings for C implementation of xorfilter"
+authors = [
+    {name = "Amey Narkhede", email = "ameynarkhede02@gmail.com"},
+]
+dependencies = ["cffi"]
+readme = "README.md"
+license = {text = "Apache 2.0"}
+requires-python = ">=3.0"
+[project.urls]
+Homepage = "https://github.com/glitzflitz/pyxorfilter"
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta:__legacy__"

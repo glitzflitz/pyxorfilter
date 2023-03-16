@@ -7,10 +7,10 @@ ffi = FFI()
 cdef_from_file = None
 
 all_src = ""
-with open("lib/xor_singleheader/include/xorfilter.h", "r") as src:
+with open("lib/xor_singleheader/include/xorfilter.h", "r", encoding='utf-8') as src:
   all_src += src.read()
 
-with open("lib/xor_singleheader/include/binaryfusefilter.h", "r") as src:
+with open("lib/xor_singleheader/include/binaryfusefilter.h", "r", encoding='utf-8') as src:
   all_src += src.read()
 
 

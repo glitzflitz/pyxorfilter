@@ -44,7 +44,7 @@ jobs:
           submodules: recursive
 
       - name: Build sdist
-        run: python setup.py sdist
+        run: pipx run build --sdist
 
       - uses: actions/upload-artifact@v3
         with:

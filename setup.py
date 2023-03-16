@@ -9,7 +9,7 @@ setup(
     long_description_content_type="text/markdown",
     author="Amey Narkhede",
     author_email="ameynarkhede02@gmail.com",
-    url="https://github.com/GreyDireWolf/pyxorfilter",
+    url="https://github.com/glitzflitz/pyxorfilter",
     license="Apache 2.0",
     python_requires=">=3.0",
     packages=find_packages(),

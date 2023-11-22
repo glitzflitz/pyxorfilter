@@ -151,6 +151,21 @@ bool xor16_buffered_populate(const uint64_t *keys, uint32_t size, xor16_t *filte
 bool xor16_populate(const uint64_t *keys, uint32_t size, xor16_t *filter) ;
 bool binary_fuse16_populate(const uint64_t *keys, uint32_t size, binary_fuse16_t *filter) ;
 
+
+size_t xor16_serialization_bytes(xor16_t *filter);
+size_t xor8_serialization_bytes(const xor8_t *filter);
+void xor16_serialize(const xor16_t *filter, char *buffer);
+void xor8_serialize(const xor8_t *filter, char *buffer);
+bool xor16_deserialize(xor16_t * filter, const char *buffer);
+bool xor8_deserialize(xor8_t * filter, const char *buffer);
+
+size_t binary_fuse16_serialization_bytes(binary_fuse16_t *filter);
+size_t binary_fuse8_serialization_bytes(const binary_fuse8_t *filter);
+void binary_fuse16_serialize(const binary_fuse16_t *filter, char *buffer);
+void binary_fuse8_serialize(const binary_fuse8_t *filter, char *buffer);
+bool binary_fuse16_deserialize(binary_fuse16_t * filter, const char *buffer);
+bool binary_fuse8_deserialize(binary_fuse8_t * filter, const char *buffer);
+
 """
 )
 

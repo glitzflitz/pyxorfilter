@@ -7,7 +7,6 @@ class Xor8:
     def __init__(self, size):
         self.__filter = ffi.new("xor8_t *")
         status = lib.xor8_allocate(size, self.__filter)
-        self.size = size
         if not status:
             print("Unable to allocate memory for 8 bit filter")
 
@@ -33,6 +32,18 @@ class Xor8:
 
     def size_in_bytes(self):
         return lib.xor8_size_in_bytes(self.__filter)
+    
+    def serialize(self):
+        buffer = ffi.new("char[]", lib.xor8_serialization_bytes(self.__filter))
+        lib.xor8_serialize(self.__filter, buffer)
+        return ffi.buffer(buffer)
+
+    @staticmethod
+    def deserialize(buffer):
+        self = object.__new__(Xor8)
+        self.__filter = ffi.new("xor8_t *")
+        lib.xor8_deserialize(self.__filter, ffi.from_buffer(buffer))
+        return self
 
 
 class Xor16:
@@ -62,13 +73,22 @@ class Xor16:
     def size_in_bytes(self):
         return lib.xor16_size_in_bytes(self.__filter)
 
+    def serialize(self):
+        buffer = ffi.new("char[]", lib.xor16_serialization_bytes(self.__filter))
+        lib.xor16_serialize(self.__filter, buffer)
+        return ffi.buffer(buffer)
 
+    @staticmethod
+    def deserialize(buffer):
+        self = object.__new__(Xor16)
+        self.__filter = ffi.new("xor16_t *")
+        lib.xor16_deserialize(self.__filter, ffi.from_buffer(buffer))
+        return self
 
 class Fuse8:
     def __init__(self, size):
         self.__filter = ffi.new("binary_fuse8_t *")
         status = lib.binary_fuse8_allocate(size, self.__filter)
-        self.size = size
         if not status:
             print("Unable to allocate memory for 8 bit filter")
 
@@ -95,13 +115,22 @@ class Fuse8:
     def size_in_bytes(self):
         return lib.binary_fuse8_size_in_bytes(self.__filter)
 
+    def serialize(self):
+        buffer = ffi.new("char[]", lib.binary_fuse8_serialization_bytes(self.__filter))
+        lib.binary_fuse8_serialize(self.__filter, buffer)
+        return ffi.buffer(buffer)
 
+    @staticmethod
+    def deserialize(buffer):
+        self = object.__new__(Fuse8)
+        self.__filter = ffi.new("binary_fuse8_t *")
+        lib.binary_fuse8_deserialize(self.__filter, ffi.from_buffer(buffer))
+        return self
 
 class Fuse16:
     def __init__(self, size):
         self.__filter = ffi.new("binary_fuse16_t *")
         status = lib.binary_fuse16_allocate(size, self.__filter)
-        self.size = size
         if not status:
             print("Unable to allocate memory for 16 bit filter")
 
@@ -127,3 +156,15 @@ class Fuse16:
 
     def size_in_bytes(self):
         return lib.binary_fuse16_size_in_bytes(self.__filter)
+
+    def serialize(self):
+        buffer = ffi.new("char[]", lib.binary_fuse16_serialization_bytes(self.__filter))
+        lib.binary_fuse16_serialize(self.__filter, buffer)
+        return ffi.buffer(buffer)
+
+    @staticmethod
+    def deserialize(buffer):
+        self = object.__new__(Fuse16)
+        self.__filter = ffi.new("binary_fuse16_t *")
+        lib.binary_fuse16_deserialize(self.__filter, ffi.from_buffer(buffer))
+        return self

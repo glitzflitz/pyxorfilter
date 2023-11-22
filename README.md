@@ -1,7 +1,5 @@
 # pyxorfilter
 
-[![Build Status](https://travis-ci.org/glitzflitz/pyxorfilter.svg?branch=master)](https://travis-ci.org/glitzflitz/pyxorfilter)
-
 Python bindings for [C](https://github.com/FastFilter/xor_singleheader) implementation of [Xor Filters: Faster and Smaller Than Bloom and Cuckoo Filters](https://arxiv.org/abs/1912.08258)
 and of [Binary Fuse Filters: Fast and Smaller Than Xor Filters](https://arxiv.org/abs/2201.01174).
 ## Installation
@@ -32,6 +30,16 @@ False
 >>> filter.size_in_bytes()
 60
 ```
+
+You can serialize a filter with the `serialize()` method which returns a buffer, and you can recover the filter with the `deserialize(buffer)` method, which returns a filter:
+
+```py
+> f = open('/tmp/output', 'wb')
+> f.write(filter.serialize())
+> f.close()
+> recoverfilter = Xor8.deserialize(open('/tmp/output', 'rb').read())
+```
+
 ## Caveats
 ### Accuracy
 For more accuracy(less false positives) use larger but more accurate Xor16 for Fuse16.
@@ -46,9 +54,6 @@ For large sets (contain millions of keys), Fuse8/Fuse16 filters are faster and s
 >>> filter.size_in_bytes()
 1130536
 ```
-
-### Overflow
-Both Xor8/Fuse8 and Xor16/Fuse16 take uint8_t and uint_16t respectively. Make sure that the input is unsigned.
 
 ### TODO
 

@@ -3,7 +3,7 @@ import os
 
 setup(
     name="pyxorfilter",
-    version="0.1.1",
+    version="1.1.0",
     description="Python bindings for C implementation of xorfilter",
     long_description=open("README.md", "r", encoding='utf-8').read(),
     long_description_content_type="text/markdown",

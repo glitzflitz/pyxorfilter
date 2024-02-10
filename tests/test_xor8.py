@@ -1,5 +1,6 @@
 from pyxorfilter import Xor8
 from random import sample
+import tempfile, os
 
 
 def test_xor8_int():
@@ -36,3 +37,19 @@ def test_xor8_all():
     xor_filter.populate(test_str.copy())
     for i in test_str:
         assert xor_filter.contains(i) == True
+
+def test_xor8_serialize():
+    xor_filter = Xor8(5)
+    test_str = ["string", 51, 0.0, 12.3]
+    xor_filter.populate(test_str.copy())
+    serialized_filter = tempfile.NamedTemporaryFile(delete=False).name
+    with open(serialized_filter, 'wb') as f:
+        f.write(xor_filter.serialize())
+
+    with open(serialized_filter, 'rb') as f:
+        recover_xor_filter = Xor8.deserialize(f.read())
+
+    for i in test_str:
+        assert recover_xor_filter.contains(i) == True
+
+    os.remove(serialized_filter)

@@ -14,7 +14,7 @@ setup(
     python_requires=">=3.0",
     packages=find_packages(),
     ext_package="pyxorfilter",
-    install_requires=["cffi"],
+    install_requires=["cffi","xxhash"],
     setup_requires=["cffi"],
     cffi_modules=["pyxorfilter/ffibuild.py:ffi"],
     test_suite="nose.collector",

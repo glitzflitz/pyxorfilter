@@ -1,5 +1,6 @@
 from pyxorfilter import Fuse16
 from random import sample
+import tempfile, os
 
 
 def test_fuse16_int():
@@ -37,6 +38,18 @@ def test_fuse16_all():
     for i in test_str:
         assert xor_filter.contains(i) == True
 
-if __name__ == "__main__":
-    test_fuse16_all()
-    print("good")
+def test_fuse16_serialize():
+    xor_filter = Fuse16(5)
+    test_str = ["string", 51, 0.0, 12.3]
+    xor_filter.populate(test_str.copy())
+    serialized_filter = tempfile.NamedTemporaryFile(delete=False).name
+    with open(serialized_filter, 'wb') as f:
+        f.write(xor_filter.serialize())
+
+    with open(serialized_filter, 'rb') as f:
+        recover_xor_filter = Fuse16.deserialize(f.read())
+
+    for i in test_str:
+        assert recover_xor_filter.contains(i)
+
+    os.remove(serialized_filter)

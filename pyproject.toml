@@ -5,7 +5,7 @@ description = "Python bindings for C implementation of xorfilter"
 authors = [
     {name = "Amey Narkhede", email = "ameynarkhede02@gmail.com"},
 ]
-dependencies = ["cffi"]
+dependencies = ["cffi", "xxhash"]
 readme = "README.md"
 license = {text = "Apache 2.0"}
 requires-python = ">=3.0"

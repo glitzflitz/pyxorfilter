@@ -1,7 +1,10 @@
 from ._xorfilter import lib, ffi
 from ctypes import c_ulonglong
+import xxhash
 import struct
 
+def hash(item):
+    return xxhash.xxh64(str(item)).intdigest()
 
 class Xor8:
     def __init__(self, size):

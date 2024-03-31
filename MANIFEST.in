@@ -1,0 +1,2 @@
+include lib/xor_singleheader/include/binaryfusefilter.h
+include lib/xor_singleheader/include/xorfilter.h 

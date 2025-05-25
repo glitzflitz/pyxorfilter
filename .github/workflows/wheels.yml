@@ -6,8 +6,6 @@ on:
     tags:
       - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 
-name: Creating release
-
 env:
   CIBW_TEST_EXTRAS: test
   CIBW_TEST_COMMAND: "pytest {project}/tests"
@@ -40,7 +38,7 @@ jobs:
         run: |
           cd docs && make clean && make html
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
           path: dist/*.tar.gz
 
@@ -52,7 +50,7 @@ jobs:
       fail-fast: true
       matrix:
         os: [ubuntu-20.04, windows-2019, macos-11]
-        py: ["cp39", "cp310", "cp311", "cp312", "pp37", "pp38", "pp39"]
+        py: ["cp39", "cp310", "cp311", "cp312", "cp313", "pp37", "pp38", "pp39", "pp310", "pp311"]
 
     steps:
       - uses: actions/checkout@v2

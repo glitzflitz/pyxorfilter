@@ -2,6 +2,9 @@
 
 Python bindings for [C](https://github.com/FastFilter/xor_singleheader) implementation of [Xor Filters: Faster and Smaller Than Bloom and Cuckoo Filters](https://arxiv.org/abs/1912.08258)
 and of [Binary Fuse Filters: Fast and Smaller Than Xor Filters](https://arxiv.org/abs/2201.01174).
+
+
+
 ## Installation
 `pip install pyxorfilter`
 ### From Source
@@ -40,8 +43,7 @@ You can serialize a filter with the `serialize()` method which returns a buffer,
 > recoverfilter = Xor8.deserialize(open('/tmp/output', 'rb').read())
 ```
 
-## Caveats
-### Accuracy
+## False-positive rate
 For more accuracy(less false positives) use larger but more accurate Xor16 for Fuse16.
 
 For large sets (contain millions of keys), Fuse8/Fuse16 filters are faster and smaller than Xor8/Xor16.
@@ -55,10 +57,13 @@ For large sets (contain millions of keys), Fuse8/Fuse16 filters are faster and s
 1130536
 ```
 
-### TODO
 
-- [x] Add unit tests
-- [x] Add CI support for distributing pyxorfilter with PyPI.
+
+## References
+
+- [Binary Fuse Filters: Fast and Smaller Than Xor Filters](http://arxiv.org/abs/2201.01174), Journal of Experimental Algorithmics 27, 2022.
+- [Xor Filters: Faster and Smaller Than Bloom and Cuckoo Filters](https://arxiv.org/abs/1912.08258), Journal of Experimental Algorithmics 25 (1), 2020
+
 
 ## Links
 * [C Implementation](https://github.com/FastFilter/xor_singleheader)

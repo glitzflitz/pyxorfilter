@@ -41,40 +41,25 @@ jobs:
           path: dist/*.tar.gz
 
   build_wheels:
-    needs: [sdist]
-    name: "[${{ strategy.job-index }}/${{ strategy.job-total }}] py${{ matrix.py }} on ${{ matrix.os }}"
+    name: Build wheels on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
-      fail-fast: true
       matrix:
-        os: [ubuntu-20.04, windows-2022, macos-11]
-        py: ["cp39", "cp310", "cp311", "cp312", "cp313", "pp39"]
+        os: [ubuntu-latest, windows-latest, macos-latest]
 
     steps:
-      - uses: actions/checkout@v5
-        with:
-          submodules: true
+      - uses: actions/checkout@v3
 
-      - uses: actions/setup-python@v5
-        name: Setting up Python
+      - name: Build wheels
+        uses: pypa/cibuildwheel@v2.11.2
         with:
-          python-version: '3.13'
-
-      - name: Set up QEMU
-        if: runner.os == 'Linux'
-        uses: docker/setup-qemu-action@v1
-        with:
-          platforms: all
-
-      - name: Build & test wheels
-        uses: pypa/cibuildwheel@v3.1.4
-        env:
-          CIBW_ARCHS_LINUX: auto aarch64 ppc64le
-          CIBW_BUILD: "${{ matrix.py }}-*"
+          config-file: "{package}/pyproject-cibuildwheel.toml"
 
       - uses: actions/upload-artifact@v4
         with:
+          name: wheel-artifact-${{ matrix.os }}
           path: ./wheelhouse/*.whl
+          if-no-files-found: error
 
   upload_all:
     needs: [build_wheels, sdist]
@@ -85,8 +70,9 @@ jobs:
       with:
         name: artifact
         path: dist
+        merge-multiple: true
 
-    - uses: pypa/gh-action-pypi-publish@v1.4.2
+    - uses: pypa/gh-action-pypi-publish@v1.5.0
       with:
         user: ${{ secrets.PYPI_USERNAME }}
         password: ${{ secrets.PYPI_PASSWORD }}

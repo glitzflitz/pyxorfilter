@@ -39,7 +39,7 @@ jobs:
         run: |
           cd docs && make clean && make html
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
           path: dist/*.tar.gz
 

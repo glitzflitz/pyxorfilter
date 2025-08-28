@@ -3,7 +3,7 @@ import os
 
 setup(
     name="pyxorfilter",
-    version="1.1.5",
+    version="1.1.7",
     description="Python bindings for C implementation of xorfilter",
     long_description=open("README.md", "r", encoding='utf-8').read(),
     long_description_content_type="text/markdown",
@@ -16,7 +16,6 @@ setup(
     ext_package="pyxorfilter",
     install_requires=["cffi","xxhash"],
     setup_requires=["cffi"],
-    cffi_modules=["pyxorfilter/ffibuild.py:ffi"],
-    test_suite="nose.collector",
-    tests_require=["nose"],
+     cffi_modules=["pyxorfilter/ffibuild.py:ffi"],
 )
+

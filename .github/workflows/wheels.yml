@@ -18,10 +18,11 @@ jobs:
     name: Creating source release
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-
+      - uses: actions/checkout@v5
+        with:
+          submodules: true
       - name: Setting up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
           python-version: 3.8
 
@@ -54,9 +55,11 @@ jobs:
         py: ["cp39", "cp310", "cp311", "cp312", "pp37", "pp38", "pp39"]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v5
+        with:
+          submodules: true
 
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v5
         name: Setting up Python
         with:
           python-version: '3.8'

@@ -1,5 +1,7 @@
 # pyxorfilter
 
+Update to date fork at https://github.com/FastFilter/pyfusefilter
+
 Python bindings for [C](https://github.com/FastFilter/xor_singleheader) implementation of [Xor Filters: Faster and Smaller Than Bloom and Cuckoo Filters](https://arxiv.org/abs/1912.08258)
 and of [Binary Fuse Filters: Fast and Smaller Than Xor Filters](https://arxiv.org/abs/2201.01174).
 

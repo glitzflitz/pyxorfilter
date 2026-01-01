@@ -1,3 +1,8 @@
+# ⚠️ Archived
+
+This repository is no longer maintained. Please use the actively maintained fork:
+
+**[FastFilter/pyfusefilter](https://github.com/FastFilter/pyfusefilter)**
 # pyxorfilter
 
 Update-to-date fork at https://github.com/FastFilter/pyfusefilter
